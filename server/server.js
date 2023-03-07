@@ -3,6 +3,13 @@ const express = require('express');
 const app = express();
 const fs = require('fs');
 
+// allow CORS
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 app.get('/data', function (req, res) {
     fs.readFile(__dirname + "/" + "data.json", 'utf8', function (err, data) {
         console.log(data);
@@ -14,7 +21,7 @@ app.get('/data', function (req, res) {
 app.delete('/deleteExpense', function (req, res) {
     fs.readFile(__dirname + "/" + "data.json", 'utf8', function (err, data) {
         data = JSON.parse(data);
-        delete data["expenses"][req.query.id];
+        delete data[req.query.id];
         console.log(data);
         fs.writeFileSync('data.json', JSON.stringify(data));
         res.end(JSON.stringify(data));
@@ -25,7 +32,7 @@ app.delete('/deleteExpense', function (req, res) {
 app.post('/addExpense', function (req, res) {
     fs.readFile(__dirname + "/" + "data.json", 'utf8', function (err, data) {
         data = JSON.parse(data);
-        data["expenses"][req.query.id] = req.query.expense;
+        data[req.query.id] = req.query.expense;
         console.log(data);
         fs.writeFileSync('data.json', JSON.stringify(data));
         res.end(JSON.stringify(data));
@@ -35,7 +42,7 @@ app.post('/addExpense', function (req, res) {
 app.put('/updateExpense', function (req, res) {
     fs.readFile(__dirname + "/" + "data.json", 'utf8', function (err, data) {
         data = JSON.parse(data);
-        data["expenses"][req.query.id] = req.query.expense;
+        data[req.query.id] = req.query.expense;
         console.log(data);
         fs.writeFileSync('data.json', JSON.stringify(data));
         res.end(JSON.stringify(data));
