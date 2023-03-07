@@ -10,41 +10,40 @@ app.get('/data', function (req, res) {
     });
 })
 
-// add expense to data.json
+// add expense to data.json using fs.writeFileSync
 app.post('/addExpense', function (req, res) {
-    // First read existing users.
     fs.readFile(__dirname + "/" + "data.json", 'utf8', function (err, data) {
         data = JSON.parse(data);
-        data["expenses"].push(req.body);
+        data["expense"] = data["expense"] + 1;
         console.log(data);
+        fs.writeFileSync(__dirname + "/" + "data.json", JSON.stringify(data));
         res.end(JSON.stringify(data));
     });
 })
 
-// delete expense from data.json
-app.delete('/deleteExpense/:id', function (req, res) {
+app.delete('/deleteExpense:id', function (req, res) {
     // First read existing users.
     fs.readFile(__dirname + "/" + "data.json", 'utf8', function (err, data) {
         data = JSON.parse(data);
-        delete data["expenses"][req.params.id];
+        delete data["expense"][req.params.id];
         console.log(data);
+        fs.writeFileSync(__dirname + "/" + "data.json", JSON.stringify(data));
         res.end(JSON.stringify(data));
     });
 })
 
-// update expense from data.json
-app.put('/updateExpense/:id', function (req, res) {
+app.put('/updateExpense:id', function (req, res) {
     // First read existing users.
     fs.readFile(__dirname + "/" + "data.json", 'utf8', function (err, data) {
         data = JSON.parse(data);
-        data["expenses"][req.params.id] = req.body;
+        data["expense"][req.params.id] = req.body;
         console.log(data);
+        fs.writeFileSync(__dirname + "/" + "data.json", JSON.stringify(data));
         res.end(JSON.stringify(data));
     });
 })
 
-// start server
-const server = app.listen(3000, function () {
+const server = app.listen(8081, function () {
     const host = server.address().address
     const port = server.address().port
     console.log("Example app listening at http://%s:%s", host, port)
