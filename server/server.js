@@ -10,39 +10,39 @@ app.get('/data', function (req, res) {
     });
 })
 
-// add expense to data.json using fs.writeFileSync
+// delete expense in data.json expenses object using fs.writeFileSync
+app.delete('/deleteExpense', function (req, res) {
+    fs.readFile(__dirname + "/" + "data.json", 'utf8', function (err, data) {
+        data = JSON.parse(data);
+        delete data["expenses"][req.query.id];
+        console.log(data);
+        fs.writeFileSync('data.json', JSON.stringify(data));
+        res.end(JSON.stringify(data));
+    });
+})
+
+// add expense in data.json expenses object using fs.writeFileSync
 app.post('/addExpense', function (req, res) {
     fs.readFile(__dirname + "/" + "data.json", 'utf8', function (err, data) {
         data = JSON.parse(data);
-        data["expense"] = data["expense"] + 1;
+        data["expenses"][req.query.id] = req.query.expense;
         console.log(data);
-        fs.writeFileSync(__dirname + "/" + "data.json", JSON.stringify(data));
+        fs.writeFileSync('data.json', JSON.stringify(data));
         res.end(JSON.stringify(data));
     });
 })
 
-app.delete('/deleteExpense:id', function (req, res) {
-    // First read existing users.
+app.put('/updateExpense', function (req, res) {
     fs.readFile(__dirname + "/" + "data.json", 'utf8', function (err, data) {
         data = JSON.parse(data);
-        delete data["expense"][req.params.id];
+        data["expenses"][req.query.id] = req.query.expense;
         console.log(data);
-        fs.writeFileSync(__dirname + "/" + "data.json", JSON.stringify(data));
+        fs.writeFileSync('data.json', JSON.stringify(data));
         res.end(JSON.stringify(data));
     });
 })
 
-app.put('/updateExpense:id', function (req, res) {
-    // First read existing users.
-    fs.readFile(__dirname + "/" + "data.json", 'utf8', function (err, data) {
-        data = JSON.parse(data);
-        data["expense"][req.params.id] = req.body;
-        console.log(data);
-        fs.writeFileSync(__dirname + "/" + "data.json", JSON.stringify(data));
-        res.end(JSON.stringify(data));
-    });
-})
-
+// start server
 const server = app.listen(8081, function () {
     const host = server.address().address
     const port = server.address().port
