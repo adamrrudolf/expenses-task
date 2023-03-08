@@ -4,18 +4,19 @@ const app = express();
 const bodyParser = require('body-parser')
 const fs = require('fs');
 
+// allow CORS
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE")
+    next();
+});
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
 app.use(bodyParser.json())
-
-// allow CORS
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
 
 app.get('/data', function (req, res) {
     fs.readFile(__dirname + "/" + "data.json", 'utf8', function (err, data) {
@@ -54,7 +55,7 @@ app.post('/addExpense', function (req, res) {
 app.put('/updateExpense', function (req, res) {
     fs.readFile(__dirname + "/" + "data.json", 'utf8', function (err, data) {
         data = JSON.parse(data);
-        data[req.query.id] = req.query.expense;
+        data[req.query.id] = req.body;
         console.log(data);
         fs.writeFileSync('data.json', JSON.stringify(data));
         res.end(JSON.stringify(data));

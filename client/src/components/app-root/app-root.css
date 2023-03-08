@@ -13,3 +13,9 @@ h1 {
   color: #fff;
   padding: 0 12px;
 }
+
+/* change deffault link color to blue */
+a {
+  /* white */
+  color: #fff;
+}

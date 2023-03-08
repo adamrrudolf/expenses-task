@@ -36,8 +36,9 @@ table th {
 
 form {
   display: flex;
-  flex-direction: column;
   width: 100%;
+  gap: 10px;
+  align-items: center;
 }
 
 form input {
@@ -64,5 +65,26 @@ button {
   padding: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
+  height: 30px
 }
 
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+span {
+  margin-right: 20px
+}
+
+/* add space between label and input */
+label {
+  margin-right: 10px;
+}
+
+.updatate-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
