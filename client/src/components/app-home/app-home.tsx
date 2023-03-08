@@ -133,7 +133,7 @@ export class AppHome {
                           </label>
                           <input type="date" name="date" />
                         {/* close dialog button */}
-                        <button type="button" onClick={(event) => {
+                        <button class="cancel-button" type="button" onClick={(event) => {
                           event.target['closest']('dialog').close();
                         }}>Cancel</button>
                         <button type="submit">Update</button>

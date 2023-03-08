@@ -1,6 +1,6 @@
 header {
-  background: #2f6a68;
-  color: white;
+  background: var(--app-primary-color);
+  color: var(--app-quaternary-color);
   height: 56px;
   display: flex;
   align-items: center;
@@ -10,12 +10,20 @@ header {
 h1 {
   font-size: 1.4rem;
   font-weight: 500;
-  color: #fff;
+  color: var(--app-quaternary-color);
   padding: 0 12px;
+  /* margin-right: auto; */
 }
 
 /* change deffault link color to blue */
 a {
-  /* white */
-  color: #fff;
+  color: var(--app-quaternary-color);
+}
+
+.theme-switch-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  margin-left: auto;
+  gap: 8px;
 }

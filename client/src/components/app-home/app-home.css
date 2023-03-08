@@ -2,6 +2,15 @@
   padding: 10px;
 }
 
+/* :root {
+  --app-primary-color: #2e5d72;
+  --app-secondary-color: #144f16;
+  --app-tertiary-color: #5851ff;
+  --app-quaternary-color: #f2f2f2;
+} */
+
+/* replace colors with css variables */
+
 button:hover {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
   transform: translateY(1px);
@@ -14,24 +23,24 @@ table {
 
 table td,
 table th {
-  border: 1px solid #ddd;
+  border: 1px solid var(--app-tertiary-color);
   padding: 8px;
 }
 
 table tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: var(--app-quaternary-color);
 }
 
 table tr:hover {
-  background-color: #ddd;
+  background-color: var(--app-hover-color);
 }
 
 table th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: #2e5d72;
-  color: white;
+  background-color: var(--app-primary-color);
+  color: var(--app-quaternary-color);
 }
 
 form {
@@ -44,13 +53,13 @@ form {
 form input {
   margin: 8px 0;
   padding: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--app-tertiary-color);
   border-radius: 2px;
   outline: 0;
 }
 
 form input:focus {
-  border-color: #5851ff;
+  border-color: var(--app-secondary-color);
 }
 
 form button {
@@ -58,8 +67,8 @@ form button {
 }
 
 button {
-  background: #144f16;
-  color: white;
+  background: var(--app-primary-color);
+  color: var(--app-quaternary-color);
   border: 0;
   border-radius: 2px;
   padding: 8px;
@@ -87,4 +96,27 @@ label {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.cancel-button {
+  background: var(--app-secondary-color);
+}
+
+input[type="text"], textarea {
+  background-color: var(--app-quaternary-color);
+  color: var(--app-primary-color);
+  color: var(--app-tertiary-color);
+  border: 1px solid var(--app-tertiary-color);
+  border-radius: 2px;
+  outline: 0;
+}
+
+/* input number */
+input[type="number"], input[type="text"], textarea , input[type="date"] {
+  background-color: var(--app-quaternary-color);
+  color: var(--app-primary-color);
+  color: var(--app-tertiary-color);
+  border: 1px solid var(--app-tertiary-color);
+  border-radius: 2px;
+  outline: 0;
 }
