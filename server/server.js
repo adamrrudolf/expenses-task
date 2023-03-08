@@ -1,7 +1,14 @@
 // create server express to serve data.json
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser')
 const fs = require('fs');
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
 
 // allow CORS
 app.use(function (req, res, next) {
@@ -28,11 +35,16 @@ app.delete('/deleteExpense', function (req, res) {
     });
 })
 
-// add expense in data.json expenses object using fs.writeFileSync
+// add expense { name, amout, date} in data.json expenses object using fs.writeFileSync
 app.post('/addExpense', function (req, res) {
     fs.readFile(__dirname + "/" + "data.json", 'utf8', function (err, data) {
         data = JSON.parse(data);
-        data[req.query.id] = req.query.expense;
+        // get expense object from request body
+        const expense = req.body;
+        // get last id from data.json
+        const lastId = Object.keys(data).length;
+        // add new expense to data.json
+        data[lastId + 1] = expense;
         console.log(data);
         fs.writeFileSync('data.json', JSON.stringify(data));
         res.end(JSON.stringify(data));

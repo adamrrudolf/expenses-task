@@ -10,7 +10,7 @@ export class AppRoot {
     return (
       <div>
         <header>
-          <h1>Stencil App Starter</h1>
+          <h1>Expenses manager with Stencil. To check out the code, go to <a href="https://github.com/adamrrudolf/expenses-task">Github</a></h1>
         </header>
 
         <main>

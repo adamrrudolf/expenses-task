@@ -25,15 +25,45 @@ export class AppHome {
   }
 
 
-
-
   render() {
     return (
       <div class="app-home">
-        <p>
-          Welcome to the Stencil App Starter. You can use this starter to build entire apps all with web components using Stencil! Check out our docs on{' '}
-          <a href="https://stenciljs.com">stenciljs.com</a> to get started.
-        </p>
+        {/* add expense UI to POST to localhost:8081/addExpense */}
+        <form
+          onSubmit={async (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.target as HTMLFormElement);
+            const name = formData.get('name');
+            const amount = formData.get('amount');
+            const date = formData.get('date');
+            const id = formData.get('id');
+            await fetch('http://localhost:8081/addExpense', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ name, amount, date, id }),
+            });
+            // reload expenses
+            const response = await fetch('http://localhost:8081/data')
+            const data = await response.json();
+            this.expenses = data;
+          }}
+        >
+          <label>
+            Name
+            <input type="text" name="name" />
+          </label>
+          <label>
+            Amount
+            <input type="number" name="amount" />
+          </label>
+          <label>
+            Date
+            <input type="date" name="date" />
+          </label>
+          <button type="submit">Add expense</button>
+        </form>
         {/* render expenses: name, amount, date */}
         <table>
           <thead>
